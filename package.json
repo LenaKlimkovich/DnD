@@ -1,0 +1,47 @@
+{
+  "name": "dnd",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/LenaKlimkovich/DnD#readme",
+  "bugs": {
+    "url": "https://github.com/LenaKlimkovich/DnD/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LenaKlimkovich/DnD.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+ "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --config webpack.config.cjs --mode production",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
+    "@eslint/js": "^10.0.1",
+    "babel-jest": "^30.4.1",
+    "babel-loader": "^10.1.1",
+    "css-loader": "^7.1.4",
+    "eslint": "^10.4.0",
+    "file-loader": "^6.2.0",
+    "globals": "^17.6.0",
+    "html-webpack-plugin": "^5.6.7",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "jsdom": "^29.1.1",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^7.0.2",
+    "webpack-dev-server": "^5.2.4"
+  },
+  "dependencies": {
+    "eslint-plugin-jest": "^29.15.2"
+  }
+}

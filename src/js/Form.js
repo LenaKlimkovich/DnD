@@ -1,50 +1,68 @@
-import { Card } from "./Сard.js";
+import { Card } from "./Card.js";
 
 export class Form {
-    constructor(columnElement) {
-        this.column = columnElement;
+  constructor(column, type, cards, onAdd, onDelete) {
+    this.column = column;
+    this.type = type;
+    this.cards = cards;
+    this.onAdd = onAdd;
+    this.onDelete = onDelete;
 
-        this.form = this.column.querySelector(".form");
-        this.textarea = this.form.querySelector("textarea");
-        this.addBtn = this.form.querySelector(".add");
-        this.cancelBtn = this.form.querySelector(".delete");
-        this.addTaskBtn = this.column.querySelector(".add-task");
+    this.form = this.column.querySelector(".form");
+    this.textarea = this.form.querySelector("textarea");
+    this.addBtn = this.form.querySelector(".add");
+    this.cancelBtn = this.form.querySelector(".delete");
+    this.addTaskBtn = this.column.querySelector(".add-task");
 
-        this.addEvents();
-    }
+    this.addEvents();
+  }
 
-    show() {
-        this.form.classList.remove("hidden");
-        this.addTaskBtn.style.display = "none";
-        this.textarea.focus();
-    }
+  render() {
+    const cardContainer = this.column.querySelector(".cards");
 
-    hide() {
-        this.form.classList.add("hidden");
-        this.addTaskBtn.style.display = "block";
-        this.textarea.value = "";
-    }
+    cardContainer.innerHTML = "";
 
-    addEvents() {
-        this.addTaskBtn.addEventListener("click", () => {
-            this.show();
-        });
+    this.cards.forEach((cardData) => {
+      const card = new Card(
+        cardData.text,
+        cardData.id,
+        this.type,
+        this.onDelete
+      );
 
-        this.cancelBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            this.hide();
-        });
+      cardContainer.append(card.element);
+    });
+  }
 
-        this.addBtn.addEventListener("click", (e) => {
-            e.preventDefault();
+  show() {
+    this.form.classList.remove("hidden");
+    this.addTaskBtn.style.display = "none";
+    this.textarea.focus();
+  }
 
-            const text = this.textarea.value.trim();
-            if (!text) return;
+  hide() {
+    this.form.classList.add("hidden");
+    this.addTaskBtn.style.display = "block";
+    this.textarea.value = "";
+  }
 
-            const card = new Card(text);
-            this.column.insertBefore(card.element, this.form);
+  addEvents() {
+    this.addTaskBtn.addEventListener("click", () => {
+      this.show();
+    });
 
-            this.hide();
-        });
-    }
+    this.cancelBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.hide();
+    });
+
+    this.addBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const text = this.textarea.value.trim();
+      if (!text) return;
+      this.onAdd(this.type, text);
+      this.hide();
+    });
+  }
 }
